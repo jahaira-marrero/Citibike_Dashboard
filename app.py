@@ -37,7 +37,7 @@ st.pydeck_chart(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                 data=data
+                                 data=data,
                                  get_position='[lat, lon]',
                                  radius=100,
                                  extruded=True,
@@ -50,7 +50,7 @@ st.pydeck_chart(pdk.Deck(
                                 data=data,
                                 get_position='[lon, lat]',
                                 get_color='[200, 30, 0, 160]',
-                                 get_radius=200,
+                                get_radius=200,
                       ),
            ],
 ))
