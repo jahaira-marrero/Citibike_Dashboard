@@ -19,7 +19,7 @@ data = pd.read_sql("select * from trips limit 10000;", conn)
 if st.button('Get List'):
         st.write(data)
 
-chart_data = pd.DataFrame(data['GENDER'])
+chart_data = pd.DataFrame(data['GENDER'].value_counts())
 if st.button('By Gender'):
     st.bar_chart(chart_data)
  
