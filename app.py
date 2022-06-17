@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import altair as alt
+import plotly.figure_factory as ff
 
 
 
@@ -17,8 +18,11 @@ data = pd.read_sql("select * from trips limit 10000;", conn)
 
 if st.button('Get List'):
         st.write(data)
+
+chart_data = pd.DataFrame(data['GENDER'])
 if st.button('By Gender'):
-   st.write(data['GENDER'].value_counts().plot(kind='pie'))
+    st.bar_chart(chart_data)
+ 
 
 
 st.write(data.head())
