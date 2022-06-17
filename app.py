@@ -24,7 +24,7 @@ chart_data = pd.DataFrame(data['GENDER'].value_counts())
 if st.button('By Gender'):
     st.bar_chart(chart_data)
  
-map_data=pd.DataFrame(data['lat', 'lon', 'latitude', 'longitude'])
+map_data=pd.DataFrame(data[['lat', 'lon'] ['latitude', 'longitude']])
 st.map(map_data)
 
 
