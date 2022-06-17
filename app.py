@@ -10,7 +10,7 @@ import altair as alt
 st.title('Citibike Dashboard')
 
 conn = snowflake.connector.connect(**st.secrets["snowflake"])
-data = pd.read_sql("select * from trips;", conn)
+data = pd.read_sql("select * from trips limit 50000;", conn)
 
 if st.button('Get List'):
         st.write(data)
