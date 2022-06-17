@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 import streamlit as st
 import snowflake
 import snowflake.connector
@@ -6,6 +5,9 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import altair as alt
+import matplotlib
+import pyplot
+
 
 
 
@@ -25,7 +27,7 @@ if st.button('By Gender'):
     st.bar_chart(chart_data)
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
-
+df = pd.DataFrame(data['lat','lon'])
 st.pydeck_chart(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
            initial_view_state=pdk.ViewState(
@@ -37,7 +39,7 @@ st.pydeck_chart(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                 data=data,
+                                 data=df,
                                  get_position='[lat, lon]',
                                  radius=100,
                                  extruded=True,
@@ -47,7 +49,7 @@ st.pydeck_chart(pdk.Deck(
                       ),
                       pdk.Layer(
                                 'ScatterplotLayer',
-                                data=data,
+                                data=df,
                                 get_position='[lon, lat]',
                                 get_color='[200, 30, 0, 160]',
                                 get_radius=200,
