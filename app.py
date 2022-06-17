@@ -6,6 +6,9 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import altair as alt
+import matplotlib.pyplot as plt
+
+
 
 st.title('Citibike Dashboard')
 
