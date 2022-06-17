@@ -26,7 +26,7 @@ if st.button('By Gender'):
     st.bar_chart(chart_data)
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
-df = pd.DataFrame(data['lat','lon'])
+df = pd.DataFrame(data, columns=['lat','lon'])
 st.pydeck_chart(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
            initial_view_state=pdk.ViewState(
