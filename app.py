@@ -5,13 +5,14 @@ import pandas as pd
 
 st.title('Citibike Dashboard')
 
-def get_citi_list():
-    with my_cnx.cursor() as my_cur:
-        my_cur.execute("select * from trips limit 20")
-        return my_cur.fetchall()
+# def get_citi_list():
+#     with my_cnx.cursor() as my_cur:
+#         my_cur.execute("select * from trips limit 20")
+#         return my_cur.fetchall()
+
+conn = snowflake.connector.connect(**st.secrets["snowflake"])
 
 if st.button('Get List'):
-    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-    my_data_rows = get_citi_list()
-    my_cnx.close()
-    st.dataframe(my_data_rows)
+        data = pd.read_sql("select * from trips limit 100;", conn)
+        st.write(data)
+
