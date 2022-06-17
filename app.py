@@ -24,8 +24,28 @@ chart_data = pd.DataFrame(data['GENDER'].value_counts())
 if st.button('By Gender'):
     st.bar_chart(chart_data)
  
-map_data=pd.DataFrame(data['lat', 'lon'])
-st.map(map_data)
+midpoint = (np.average(data['lat']), np.average(data['lon']))
+st.write(pdk.Deck(
+           map_style="mapbox://styles/mapbox/light-v9",
+           initial_view_state={
+                      "latitude": midpoint[0],
+                      "longitude": midpoint[1],
+                      "zoom": 11,
+                      "pitch": 50,
+           },
+           layers = [
+                      pdk.Layer(
+                                 "HexagonLayer",
+                                 data=data[['lat', 'lon']],
+                                 get_position=['lat', 'lon'],
+                                 radius=100,
+                                 extruded=True,
+                                 pickable = True,
+                                 elevation_scale=4,
+                                 elevation_range=[1,1000],
+                      ),
+           ],
+))
 
 
 st.write(data.head())
