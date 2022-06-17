@@ -15,7 +15,7 @@ st.title('Citibike Dashboard')
 
 conn = snowflake.connector.connect(**st.secrets["snowflake"])
 data = pd.read_sql("select * from trips limit 10000;", conn)
-data.rename(columns={'START_STATION_LATITUDE':'lat', 'START_STATION_LONGITUDE':'lon', 'END_STATION_LATITUDE': 'latitude', 'END_STATION_LONGITUDE':'longitude'})
+data.rename(columns={'START_STATION_LATITUDE':'lat', 'START_STATION_LONGITUDE':'lon', 'END_STATION_LATITUDE': 'latitude', 'END_STATION_LONGITUDE':'longitude'}, inplace=True)
 
 if st.button('Get List'):
         st.write(data)
