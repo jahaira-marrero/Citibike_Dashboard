@@ -1,5 +1,6 @@
 import streamlit as st
 import snowflake.connector
+import pandas as pd
 
 st.title('Citibike Dashboard')
 def get_citi_list():
