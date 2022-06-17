@@ -3,21 +3,33 @@ import streamlit as st
 import snowflake
 import snowflake.connector
 import pandas as pd
+import numpy as np
+import pydeck as pdk
+import altair as alt
 
 st.title('Citibike Dashboard')
 
 conn = snowflake.connector.connect(**st.secrets["snowflake"])
-data = pd.read_sql("select * from trips limit 10000;", conn)
+data = pd.read_sql("select * from trips;", conn)
 
 if st.button('Get List'):
         st.write(data)
+if st.button('By Gender'):
+   st.write(data['GENDER'].value_counts().plot(kind='pie'))
+
 
 st.write(data.head())
 
 st.subheader('Hourly Statistics')
+
+
+#     data.dropna(subset = ["LATITUDE", "LONGITUDE"], inplace=True)
+#     lowercase = lambda x: str(x).lower()
+#     data.rename(lowercase, axis = 'columns', inplace=True)
+#     data.rename(columns={'crash date_crash time': 'date/time'}, inplace=True)
+#     return data
 # df = pd.read_sql(f'select date_trunc("hour", starttime) as "date", count(*) as"num_trips", avg(tripduration)/60 as "avg duration (mins)", avg(haversine(start_station_latitude, start_station_longitude, end_station_latitude,end_station_longitude)) as "avg distance (km)" from trips group by 1 order by 1;', conn)
-data.dropna(subset = ["start_station_latitude", "start_station_longitude", "end_station_latitude", "end_station_longitude"], inplace=True)
-st.write(data)
+
 
 # st.header("Where are the most people injured in NYC?")
 # injured_people = st.slider("Number of persons injured in vehicle collisions", 0, 14)
