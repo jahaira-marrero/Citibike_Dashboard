@@ -25,7 +25,8 @@ if st.button('By Gender'):
     st.bar_chart(chart_data)
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
-st.write(pdk.Deck(
+
+st.pydeck_chart(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
            initial_view_state={
                       "latitude": midpoint[0],
@@ -36,13 +37,20 @@ st.write(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                 data=data[['lat', 'lon']],
-                                 get_position=['lat', 'lon'],
+                                 data=data
+                                 get_position='[lat, lon]',
                                  radius=100,
                                  extruded=True,
                                  pickable = True,
                                  elevation_scale=4,
                                  elevation_range=[1,1000],
+                      ),
+                      pdk.Layer(
+                                'ScatterplotLayer',
+                                data=data,
+                                get_position='[lon, lat]',
+                                get_color='[200, 30, 0, 160]',
+                                 get_radius=200,
                       ),
            ],
 ))
