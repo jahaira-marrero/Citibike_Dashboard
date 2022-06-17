@@ -7,7 +7,7 @@ st.title('Citibike Dashboard')
 
 def get_citi_list():
     with my_cnx.cursor() as my_cur:
-        my_cur.execute("select * from trips where starttime='2018-06-21 08:06:24.076'")
+        my_cur.execute("select * from trips limit 20")
         return my_cur.fetchall()
 
 if st.button('Get List'):
