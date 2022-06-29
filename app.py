@@ -52,6 +52,8 @@ st.write(pdk.Deck(
 ))
 
 st.subheader('Hourly Statistics')
+hour = st.slider("Hour to look at", 0, 23)
+data = data[data['STARTTIME'].dt.hour == hour]
 
 
 #     data.dropna(subset = ["LATITUDE", "LONGITUDE"], inplace=True)
