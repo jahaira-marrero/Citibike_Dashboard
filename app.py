@@ -6,12 +6,6 @@ import numpy as np
 import pydeck as pdk
 import altair as alt
 
-
-
-
-
-
-
 st.title('Citibike Dashboard')
 
 conn = snowflake.connector.connect(**st.secrets["snowflake"])
@@ -27,7 +21,8 @@ if st.button('By Gender'):
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
 df = pd.DataFrame(data, columns=['lat','lon'])
-st.pydeck_chart(pdk.Deck(
+
+st.write(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
            initial_view_state=pdk.ViewState(
                         latitude=midpoint[0],
@@ -45,19 +40,16 @@ st.pydeck_chart(pdk.Deck(
                                  pickable = True,
                                  elevation_scale=4,
                                  elevation_range=[1,1000],
-                      ),
-                      pdk.Layer(
-                                'ScatterplotLayer',
-                                data=df,
-                                get_position='[lon, lat]',
-                                get_color='[200, 30, 0, 160]',
-                                get_radius=200,
-                      ),
+                      )
+                    #   pdk.Layer(
+                    #             'ScatterplotLayer',
+                    #             data=df,
+                    #             get_position='[lon, lat]',
+                    #             get_color='[200, 30, 0, 160]',
+                    #             get_radius=200,
+                    #   ),
            ],
 ))
-
-
-st.write(data.head())
 
 st.subheader('Hourly Statistics')
 
