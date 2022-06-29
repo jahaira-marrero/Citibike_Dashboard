@@ -22,6 +22,13 @@ if st.button('By Gender'):
 midpoint = (np.average(data['lat']), np.average(data['lon']))
 df = pd.DataFrame(data, columns=['lat','lon'])
 
+st.subheader('Hourly Statistics')
+hour = st.slider("Hour to look at", 0, 23)
+data = data[data['STARTTIME'].dt.hour == hour]
+
+st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
+filtered = data[data['STARTTIME'].dt.hour >= hour] & data['STARTTIME'].dthour < (hour + 1)
+
 st.write(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
            initial_view_state= {
@@ -33,7 +40,7 @@ st.write(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                 data=df,
+                                 data=filtered,
                                  get_position=["lon", "lat"],
                                  radius=100,
                                  extruded=True,
@@ -41,21 +48,10 @@ st.write(pdk.Deck(
                                  elevation_scale=4,
                                  elevation_range=[1,1000],
                       ),
-                    #   pdk.Layer(
-                    #             'ScatterplotLayer',
-                    #             data=df,
-                    #             get_position='[lon, lat]',
-                    #             get_color='[200, 30, 0, 160]',
-                    #             get_radius=200,
-                    #   ),
            ],
 ))
 
-st.subheader('Hourly Statistics')
-hour = st.slider("Hour to look at", 0, 23)
-data = data[data['STARTTIME'].dt.hour == hour]
 
-st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
 
 
 #     data.dropna(subset = ["LATITUDE", "LONGITUDE"], inplace=True)
