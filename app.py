@@ -24,23 +24,23 @@ df = pd.DataFrame(data, columns=['lat','lon'])
 
 st.write(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
-           initial_view_state=pdk.ViewState(
-                        latitude=midpoint[0],
-                        longitude= midpoint[1],
-                        zoom= 11,
-                        pitch=50,
+           initial_view_state={
+                        "latitude"=midpoint[0],
+                        "longitude"= midpoint[1],
+                       "zoom"= 11,
+                        "pitch"=50,
            ),
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
                                  data=df,
-                                 get_position='[lat, lon]',
+                                 get_position=["lon", "lat"],
                                  radius=100,
                                  extruded=True,
                                  pickable = True,
                                  elevation_scale=4,
                                  elevation_range=[1,1000],
-                      )
+                      ),
                     #   pdk.Layer(
                     #             'ScatterplotLayer',
                     #             data=df,
