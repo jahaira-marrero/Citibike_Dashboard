@@ -17,7 +17,7 @@ data["old_date"] = pd.to_datetime(data.old_date)
 
 #split columns
 data["new_date"] = data["old_date"].dt.date
-data["new_time"] = data["old_date"].dt.time
+data["new_time"] = data["old_date"].dt.hour
 # data["date"] = data['STARTTIME'].date
 # data["time"] = data['STARTTIME'].time
 if st.button('Get List'):
@@ -32,7 +32,7 @@ df = pd.DataFrame(data, columns=['lat','lon'])
 
 # st.subheader('Hourly Statistics')
 hour = st.slider("Hour to look at", 0, 23)
-data = data['new_time'].dt.hour == hour
+data = data[data['new_time'].dt.hour == hour]
 
 st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
 filtered = data[data['new_time'].dt.hour >= hour & (data['new_time'].dt.hour < (hour + 1))]
