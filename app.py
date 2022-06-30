@@ -31,11 +31,11 @@ midpoint = (np.average(data['lat']), np.average(data['lon']))
 df = pd.DataFrame(data, columns=['lat','lon'])
 
 # st.subheader('Hourly Statistics')
-# hour = st.slider("Hour to look at", 0, 23)
-# ddf = df[df['STARTTIME'].dt.hour == hour, df['lon'], df['lat']]
+hour = st.slider("Hour to look at", 0, 23)
+data = data[data['new_time'].dt.hour == hour]
 
-# st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
-# filtered = data[data['STARTTIME'].dt.hour >= hour & (data['STARTTIME'].dt.hour < (hour + 1))]
+st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
+filtered = data[data['new_time'].dt.hour >= hour & (data['new_time'].dt.hour < (hour + 1))]
 st.subheader("Popular Pick Up Locations")
 
 st.write(pdk.Deck(
