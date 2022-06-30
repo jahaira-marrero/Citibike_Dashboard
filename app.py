@@ -24,7 +24,7 @@ df = pd.DataFrame(data, columns=['lat','lon', 'STARTTIME'])
 
 st.subheader('Hourly Statistics')
 hour = st.slider("Hour to look at", 0, 23)
-data = data.loc[data['STARTTIME'].dt.hour == hour, data['lon'], data['lat']]
+ddf = df[df['STARTTIME'].dt.hour == hour, df['lon'], df['lat']]
 
 st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
 filtered = data[data['STARTTIME'].dt.hour >= hour & (data['STARTTIME'].dt.hour < (hour + 1))]
@@ -40,9 +40,9 @@ st.write(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                #  data=filtered,
-                                data=filtered[['STARTTIME', 'lat', 'lon']],
-                                 get_position=filtered[["lon", "lat"]],
+                                data=ddf,
+                                # data=filtered[['STARTTIME', 'lat', 'lon']],
+                                 get_position=["lon", "lat"],
                                  radius=100,
                                  extruded=True,
                                  pickable = True,
