@@ -21,16 +21,13 @@ if st.button('By Gender'):
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
 df = pd.DataFrame(data, columns=['lat','lon', 'STARTTIME'])
-st.write(df.head())
-
-
 
 st.subheader('Hourly Statistics')
 hour = st.slider("Hour to look at", 0, 23)
-data = data[df['STARTTIME'].dt.hour == hour]
+data = data[data['STARTTIME'].dt.hour == hour]
 
 st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
-filtered = data[(data['STARTTIME'].dt.hour >= hour) & (data['STARTTIME'].dt.hour < (hour + 1))]
+filtered = data[((data['STARTTIME'].dt.hour >= hour) & (data['STARTTIME'].dt.hour < (hour + 1)), data['lon'], data['lat'])]
 
 st.write(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
@@ -43,7 +40,7 @@ st.write(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                 data=df,
+                                 data=filtered,
                                 #  data=filtered[['STARTTIME', 'lat', 'lon']],
                                  get_position=["lon", "lat"],
                                  radius=100,
