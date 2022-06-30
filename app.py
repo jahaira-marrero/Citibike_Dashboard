@@ -27,10 +27,10 @@ st.write(df.head())
 
 st.subheader('Hourly Statistics')
 hour = st.slider("Hour to look at", 0, 23)
-data = data[data['STARTTIME'].dt.hour == hour]
+nf = data[df['STARTTIME'].dt.hour == hour]
 
 st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
-filtered = data[(data['STARTTIME'].dt.hour >= hour) & (data['STARTTIME'].dt.hour < (hour + 1))]
+filtered = data[(nf['STARTTIME'].dt.hour >= hour) & (nf['STARTTIME'].dt.hour < (hour + 1))]
 
 st.write(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
@@ -44,7 +44,7 @@ st.write(pdk.Deck(
                       pdk.Layer(
                                  "HexagonLayer",
                                 # data=filtered,
-                                 data=data[['STARTTIME', 'lat', 'lon']],
+                                 data=filtered[['STARTTIME', 'lat', 'lon']],
                                  get_position=["lon", "lat"],
                                  radius=100,
                                  extruded=True,
