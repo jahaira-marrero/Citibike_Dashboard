@@ -27,7 +27,7 @@ hour = st.slider("Hour to look at", 0, 23)
 data = data[data['STARTTIME'].dt.hour == hour]
 
 st.markdown("Bike rides between %i:00 and %i:00" %(hour, (hour +1)))
-filtered = df[(data['STARTTIME'].dt.hour >= hour) & (data['STARTTIME'].dt.hour < (hour + 1))]
+filtered = data[(data['STARTTIME'].dt.hour >= hour) & (data['STARTTIME'].dt.hour < (hour + 1))]
 
 st.write(pdk.Deck(
            map_style="mapbox://styles/mapbox/light-v9",
