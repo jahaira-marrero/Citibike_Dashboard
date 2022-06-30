@@ -20,7 +20,7 @@ if st.button('By Gender'):
     st.bar_chart(chart_data)
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
-df = pd.DataFrame(data, columns=['lat','lon', 'STARTTIME'])
+df = pd.DataFrame(data, columns=['lat','lon'])
 
 st.subheader('Hourly Statistics')
 hour = st.slider("Hour to look at", 0, 23)
@@ -40,7 +40,7 @@ st.write(pdk.Deck(
            layers = [
                       pdk.Layer(
                                  "HexagonLayer",
-                                data=ddf,
+                                data=df
                                 # data=filtered[['STARTTIME', 'lat', 'lon']],
                                  get_position=["lon", "lat"],
                                  radius=100,
