@@ -21,6 +21,7 @@ if st.button('By Gender'):
  
 midpoint = (np.average(data['lat']), np.average(data['lon']))
 df = pd.DataFrame(data, columns=['lat','lon'])
+st.write(df.head())
 
 st.subheader('Hourly Statistics')
 hour = st.slider("Hour to look at", 0, 23)
