@@ -44,7 +44,7 @@ st.write(pdk.Deck(
                       pdk.Layer(
                                  "HexagonLayer",
                                 # data=filtered,
-                                 data=df[filtered[['STARTTIME', 'lat', 'lon']]],
+                                 data=filtered[['STARTTIME', 'lat', 'lon']],
                                  get_position=["lon", "lat"],
                                  radius=100,
                                  extruded=True,
