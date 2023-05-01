@@ -61,8 +61,6 @@ st.write(pdk.Deck(
 ))
 
 
-
-
 #     data.dropna(subset = ["LATITUDE", "LONGITUDE"], inplace=True)
 #     lowercase = lambda x: str(x).lower()
 #     data.rename(lowercase, axis = 'columns', inplace=True)
