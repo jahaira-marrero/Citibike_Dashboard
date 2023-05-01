@@ -14,7 +14,7 @@ data.rename(columns={'START_STATION_LATITUDE':'lat', 'START_STATION_LONGITUDE':'
 data['old_date'] = data['STARTTIME'].astype(str)
 #convert to pandas timestamp
 data["old_date"] = pd.to_datetime(data.old_date)
-
+@st.cache(persist=True)
 #split columns
 data["new_date"] = data["old_date"].dt.date
 data["new_time"] = data["old_date"].dt.hour
